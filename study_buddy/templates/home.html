@@ -17,6 +17,7 @@
       {% endfor %}
     </div>
   <div class="container">
+    <h5>Available Rooms: {{room_count}}</h5>
     {% for room in rooms %}
     <div class="container">
       <span>@{{ room.host.username }}</span>

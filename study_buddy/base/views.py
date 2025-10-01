@@ -3,22 +3,26 @@ from django.shortcuts import redirect
 from .models.room_model import Room
 from .Forms.room_form import RoomForm
 from .models.topic_model import Topic
+from django.db.models import Q
 
 
 def Home(request):
-    print("q = " + request.GET.get("q") if request.GET.get("q") != None else "raghav")
     q = request.GET.get("q") if request.GET.get("q") != None else ""
-    rooms = Room.objects.filter(topic__name__icontains=q)
-    print(q)
-    print(rooms)
+
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__contains=q)
+    )
     topics = Topic.objects.all()
-    context = {"rooms": rooms, "topics": topics}
+    room_count = rooms.count()
+
+    context = {"rooms": rooms, "topics": topics, "room_count": room_count}
     return render(request, "home.html", context)
 
 
 def AllRooms(request):
     rooms = Room.objects.all()
-    context = {"rooms": rooms}
+    room_count = rooms.count()
+    context = {"rooms": rooms, "room_count": room_count}
     return render(request, "all_rooms.html", context)
 
 
