@@ -6,11 +6,26 @@ from .models.topic_model import Topic
 
 
 def Home(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
-    rooms = Room.objects.all()
+    print("q = " + request.GET.get("q") if request.GET.get("q") != None else "raghav")
+    q = request.GET.get("q") if request.GET.get("q") != None else ""
+    rooms = Room.objects.filter(topic__name__icontains=q)
+    print(q)
+    print(rooms)
     topics = Topic.objects.all()
     context = {"rooms": rooms, "topics": topics}
     return render(request, "home.html", context)
+
+
+def AllRooms(request):
+    rooms = Room.objects.all()
+    context = {"rooms": rooms}
+    return render(request, "all_rooms.html", context)
+
+
+def AllTopics(request):
+    topics = Topic.objects.all()
+    context = {"topics": topics}
+    return render(request, "all_topics.html", context)
 
 
 def Room_View(request, id):

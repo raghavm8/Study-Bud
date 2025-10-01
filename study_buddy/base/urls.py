@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', view=views.Home, name="Home" ),
+    path('rooms', view=views.AllRooms, name="AllRooms"),
+    path('topics', view=views.AllTopics, name="AllTopics"),
     path('room/<str:id>', view=views.Room_View, name="Room"),
     path('create_room', view=views.create_room, name="Create_Room"),
     path('add_room', view=views.add_room, name="AddRoom"),

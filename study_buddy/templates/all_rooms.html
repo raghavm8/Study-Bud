@@ -1,21 +1,10 @@
-{% extends "main.html" %} {% block content %}
+{% extends "main.html" %}
 
-<div class="container">
+{% block content %}
+<h3>ROOMS</h3>
   <div class="container">
     <a href="{% url 'Create_Room' %}">Create Room</a>
   </div>
-    <div class="container">
-      <h3>Browse Topic</h3>
-      <hr>
-      <div>
-        <a href="{% url "Home" %}">All</a>
-      </div>
-      {% for topic in topics %}
-      <div>
-        <a href="{% url "Home" %}?q={{topic.name}}">{{topic.name}}</a>
-      </div>
-      {% endfor %}
-    </div>
   <div class="container">
     {% for room in rooms %}
     <div class="container">
@@ -30,5 +19,4 @@
     <p>---------------------------------------------------------------------------</p>
     {% endfor %}
   </div>
-</div>
 {% endblock content %}

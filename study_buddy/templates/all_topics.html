@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h1>Topics</h1>
+  <div class="container">
+    {% for topic in topics %}
+      <div>
+        <a href="{% url "Home" %}?q{{topic.name}}">{{topic.name}}</a>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
