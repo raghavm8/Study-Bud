@@ -1,0 +1,34 @@
+{% extends "main.html" %} {% block content %}
+
+<div class="container">
+  <div class="container">
+    <a href="{% url 'Create_Room' %}">Create Room</a>
+  </div>
+    <div class="container">
+      <h3>Browse Topic</h3>
+      <hr>
+      <div>
+        <a href="{% url "Home" %}">All</a>
+      </div>
+      {% for topic in topics %}
+      <div>
+        <a href="{% url "Home" %}?q{{topic.name}}">{{topic.name}}</a>
+      </div>
+      {% endfor %}
+    </div>
+  <div class="container">
+    {% for room in rooms %}
+    <div class="container">
+      <span>@{{ room.host.username }}</span>
+      <h3><a href="{% url 'Room' room.id %}">{{ room.name }}</a></h3>
+      <div>Topic = <small>{{ room.topic.name }}</small></div>
+      <div class>
+        <a href="{% url "Update_Room" room.id %}">EDIT</a>
+        <a href="{% url "Delete_Room" room.id %}">DELETE</a>
+      </div>
+    </div>
+    <p>---------------------------------------------------------------------------</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

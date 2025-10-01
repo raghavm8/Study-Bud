@@ -1,0 +1,10 @@
+{% extends "main.html" %} 
+{% block content %}
+<div class="container">
+  <form action="{% url 'UpdateRoom' room.id %}" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-dark">Update</button>
+  </form>
+</div>
+{% endblock content %}
