@@ -4,6 +4,8 @@ from .models.room_model import Room
 from .Forms.room_form import RoomForm
 from .models.topic_model import Topic
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 
 def Home(request):
@@ -38,12 +40,15 @@ def Room_View(request, id):
     return render(request, "room.html", context)
 
 
+@login_required(login_url="LoginUser")
 def create_room(request):
     form = RoomForm
+    print("Inside create room")
     context = {"form": form}
     return render(request, "room_create_form.html", context)
 
 
+@login_required(login_url="LoginUser")
 def add_room(request):
     if request.method == "POST":
         print(request.POST)
@@ -55,13 +60,19 @@ def add_room(request):
     return render(request, "home.html")
 
 
+@login_required(login_url="LoginUser")
 def update_room(request, id):
     room = Room.objects.get(id=id)
+
+    if request.user != room.host:
+        return HttpResponse("You are not allowed to update")
+
     form = RoomForm(instance=room)
     context = {"form": form, "room": room}
     return render(request, "room_update_form.html", context)
 
 
+@login_required(login_url="LoginUser")
 def edit_room(request, id):
     room = Room.objects.get(id=id)
     form = RoomForm()
@@ -74,11 +85,16 @@ def edit_room(request, id):
     return render(request, "home.html")
 
 
+@login_required(login_url="LoginUser")
 def delete_room(request, id):
     room = Room.objects.get(id=id)
+    if request.user != room.host:
+        return HttpResponse("You are not allowed to delete")
+
     return render(request, "delete_room.html", {"obj": room})
 
 
+@login_required(login_url="LoginUser")
 def remove_room(request, id):
     room = Room.objects.get(id=id)
     print(room)
