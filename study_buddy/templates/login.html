@@ -21,10 +21,15 @@
         class="form-control"
         id="password"
         placeholder="Password"
-        name="password"
-      />
+        name="password"/>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div>
+        <label for="register" class="form-label">Register</label>
+        <a href="{% url "RegisterUser" %}" >Register</a>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
   </form>
 </div>
 
