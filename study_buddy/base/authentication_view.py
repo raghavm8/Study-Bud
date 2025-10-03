@@ -40,7 +40,7 @@ def register_page(request):
     form = UserCreationForm()
     
     if request.user.is_authenticated:
-        return redirect("Home")
+            return redirect("Home")
     
     if request.method == 'POST':
         form = UserCreationForm(request.POST) 
